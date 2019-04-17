@@ -1,18 +1,34 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home layout">
+      <Banner :banners="banners"></Banner>
+      <Playlist :playlists="playlists"></Playlist>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from "axios";
+import Banner from "@/components/Banner";
+import Playlist from "@/components/Playlist";
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
+    data(){
+        return {
+            banners: [],
+            playlists: []
+        }
+    },
+    mounted(){
+        axios.get('http://localhost:3000/banner').then((res,rej)=>{
+            this.banners = res.data.banners;
+        })
+        axios.get('http://localhost:3000/top/playlist?limit=10').then((res,rej)=>{
+            this.playlists = res.data.playlists;
+        })
+    },
+    components: {
+        Banner,
+        Playlist
+    }
 }
 </script>
+<style>
+</style>
