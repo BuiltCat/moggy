@@ -1,7 +1,7 @@
 <template>
   <div class="playlist clearfix">
     <div class="playlist-title clearfix">
-      <router-link to="/">· · ·</router-link>
+      <router-link to="/PlayList">· · ·</router-link>
       <h2>热门推荐</h2>
     </div>
     <figure v-for="(playitem, index) in playlists" :key="index">
@@ -24,8 +24,6 @@ export default {
 };
 </script>
 <style>
-.playlist {
-}
 .playlist .playlist-title {
   margin: 30px 10px;
   border-bottom: 2px solid #42b983;
@@ -44,8 +42,13 @@ export default {
     white-space: nowrap;
 }
 .playlist figure {
-  float: left;
+  display: inline-block;
   width: 200px;
+  margin-bottom: 20px;
+}
+.playlist  a{
+  color: #000;
+  text-decoration: none;
 }
 .playlist figure img {
   width: 100px;

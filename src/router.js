@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import PlayListInfo from './views/PlayListInfo.vue'
+import PlayList from './views/PlayList.vue'
 
 Vue.use(Router)
 
@@ -21,6 +22,10 @@ export default new Router({
       path: '/playlistinfo/:id',
       name: 'playlistinfo',
       component: PlayListInfo
+    }, {
+      path: '/PlayList',
+      name: 'PlayList',
+      component: PlayList
     }
   ]
 })

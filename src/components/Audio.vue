@@ -1,6 +1,6 @@
 <template>
     <div class="audio">
-        <audio :src="songUrl" ref="audio">
+        <audio :src="songUrl" ref="audio" autoplay>
         </audio>
         <div class="audio-controls clearfix">
             <div  @click="play"  class="audio-avatar">
@@ -55,7 +55,6 @@ export default {
     class: 'audio',
     data (){
         return {
-            whenNum: 1,
             isPlay: true,
             currentTime: '',
             duration: 0,
@@ -72,18 +71,19 @@ export default {
     computed: {
         ...mapState([
             'songs',
-            'lyric'
+            'lyric',
+            'songNum'
         ]),
         song(){
             if(this.songs.length){
-                return this.songs[this.whenNum].name;
+                return this.songs[this.songNum].name;
             }else{
                 return '';
             }
         },
         singer(){
             if(this.songs.length){
-                return this.songs[this.whenNum].ar.map((key)=>{
+                return this.songs[this.songNum].ar.map((key)=>{
                     return key.name
                 }).toString() ;
             }else{
@@ -92,14 +92,14 @@ export default {
         },
         songUrl(){
             if(this.songs.length){
-                return this.getSongUrl(this.songs[this.whenNum].id)
+                return this.getSongUrl(this.songs[this.songNum].id)
             }else{
                 return '';
             }
         },
         picUrl(){
             if(this.songs.length){
-               return this.songs[this.whenNum].al.picUrl;
+               return this.songs[this.songNum].al.picUrl;
             }else{
                 return '';
             }
@@ -111,8 +111,9 @@ export default {
         }
     },
     mounted(){
-        get('/song/detail?ids=','347230,405998841,33894312,1356981584');
-        this.$store.dispatch('getSongs')
+        this.$store.dispatch('getSongs',{
+            ids: [347230,405998841,33894312,1356981584].toString()
+        })
         this.$refs.audio.addEventListener('timeupdate',function(){
             this.currentTime = this.$refs.audio.currentTime;
             this.duration = this.$refs.audio.duration;
@@ -126,6 +127,7 @@ export default {
     },
     methods:{
         getSongUrl(id){
+            console.log(id)
             this.$store.dispatch('getLyric',{
                 id
             })
@@ -136,18 +138,28 @@ export default {
             this.isPlay = !this.isPlay;
         },
         prev(){
-            if(this.whenNum === 0){
-                this.whenNum = this.songs.length-1;
+            const length =this.songs.length - 1;
+            if(this.songNum === 0){
+                this.$store.commit('changeSong', {
+                    num: length
+                } );
             }else{
-                this.whenNum --;
+                this.$store.commit('changeSong',{
+                    num: this.songNum - 1
+                });
             }
             this.currentTime = 0;
         },
         next(){
-            if(this.whenNum === this.songs.length-1){
-                this.whenNum = 0;
+            const length =this.songs.length - 1;
+            if(this.songNum === length){
+                this.$store.commit('changeSong', {
+                    num: 0
+                } );
             }else{
-                this.whenNum ++;
+                this.$store.commit('changeSong',{
+                    num: this.songNum + 1
+                });
             }
             this.currentTime = 0;
         },
@@ -190,7 +202,10 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #2c3e50;
+    background: #83a4d4;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #b6fbff, #83a4d4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #b6fbff, #83a4d4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     color: #fff;
     height: 60px;
 }
@@ -340,6 +355,8 @@ export default {
     float: left;
     width: 400px;
     list-style: none;
+    overflow-y: scroll;
+    height: 100%;
 }
 .audio .audio-operation .lyric-tool ul:last-child{
     margin-left: 400px;

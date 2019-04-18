@@ -8,7 +8,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     songs: [],
-    lyric: []
+    ids: [],
+    lyric: [],
+    songNum: 0
   },
   getters: {
 
@@ -16,6 +18,16 @@ export default new Vuex.Store({
   mutations: {
     getSongs(state,payload) {
       state.songs = payload.songs;
+      state.ids = state.songs.map(song => {
+        return song.id
+      })
+    },
+    addSong(state, payload) {
+      state.songs = state.songs.concat(payload.songs);
+      state.songNum = state.songs.length - 1;
+      state.ids = state.songs.map(song => {
+        return song.id
+      })
     },
     getLyric(state, payload) {
       const lyric = new Array();
@@ -28,11 +40,14 @@ export default new Vuex.Store({
         })
       });
       state.lyric = lyric;
+    },
+    changeSong(state, payload) {
+      state.songNum = payload.num;
     }
   },
   actions: {
-    async getSongs(context) {
-      const res = await get('/song/detail?ids=',[347230,405998841,33894312,1356981584].toString())
+    async getSongs(context,payload) {
+      const res = await get('/song/detail?ids=', payload.ids)
       if (res.code === 200) {
         context.commit('getSongs',
         {
@@ -40,13 +55,37 @@ export default new Vuex.Store({
         })
       }
     },
+    async addSong(context, payload) {
+      const songLocate = this.state.ids.indexOf(payload.id)
+      if (songLocate < 0) {
+        const res = await get('/song/detail?ids=',payload.id)
+        if (res.code === 200) {
+          context.commit('addSong',
+          {
+            songs: res.songs
+          })
+        }
+      }else{
+        context.commit('changeSong',
+          {
+            num: songLocate
+          })
+      }
+    },
     async getLyric(context, payload) {
       const res = await get('/lyric?id=', payload.id)
       if (res.code === 200) {
-        context.commit('getLyric',
-          {
-            lyric: res.lrc.lyric
-          })
+        if (res.hasOwnProperty('uncollected')||res.hasOwnProperty('nolyric')) {
+          context.commit('getLyric',
+            {
+              lyric: '[00:00.000] 暂无歌词\n'
+            })
+        } else {
+          context.commit('getLyric',
+            {
+              lyric: res.lrc.lyric
+            })
+        }
       }
     }
   }

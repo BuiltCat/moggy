@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">主页</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Header></Header>
     <router-view id="main"/>
     <Audio></Audio>
   </div>
 </template>
 <script>
+import Header from "@/components/Header.vue"
 import Audio from "@/components/Audio.vue"
 export default {
   id: "app",
   components: {
-    Audio
+    Audio,
+    Header
   }
   
 }
@@ -42,20 +41,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 20px;
-  border-bottom: 1px solid #42b983;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-#main {
+#main{
   margin-bottom: 70px;
 }
 </style>
