@@ -29,6 +29,11 @@ export default {
     margin-left: auto;
     margin-right: auto;
 }
+@media screen and (max-width: 1000px) {
+  .layout{
+      width: auto;
+  }
+}
 .clearfix::after{
     content: '';
     display: block;

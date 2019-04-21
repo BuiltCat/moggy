@@ -105,4 +105,14 @@ export default {
     vertical-align: bottom;
 }
 
+@media screen and (max-width: 1000px) {
+    .banner img{
+        width: 100%;
+        height: auto;
+        vertical-align: bottom;
+    }
+    .banner .aside{
+        display: none;
+    }
+}
 </style>

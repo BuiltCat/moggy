@@ -91,5 +91,25 @@ export default {
     padding-left: 50px;
     vertical-align: top;
 }
+@media screen and (max-width: 1000px) { 
+    .top .top-list{
+        display: block;
+        width: 100%;
+        list-style: none;
+        text-align: left;
+        border: 1px solid #d3d3d3;
+        height: 142px;
+        overflow-y: auto;
+    }
+    .top .playlistinfo{
+        display: inline-block;
+        width: auto;
+        padding-left: 0;
+        vertical-align: top;
+    }
+    .top .playlistinfo .avatar {
+        margin: calc(50% - 135px) auto;
+    }
+}
 </style>
 

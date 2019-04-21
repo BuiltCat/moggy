@@ -30,7 +30,6 @@ export default {
             );
             window.addEventListener('scroll',this.handleScroll)
             if(res.code === 200){
-                console.log( res.playlists)
                 this.playlists = res.playlists;
             }
         })();
@@ -86,5 +85,10 @@ export default {
 }
 .playlist figure img {
     width: 100px;
+}
+@media screen and (max-width: 1000px) {
+  .playlist figure{
+      width: 50%;
+  }
 }
 </style>

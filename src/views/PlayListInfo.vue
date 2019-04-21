@@ -192,5 +192,46 @@ export default {
     color: #42b983;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1000px) { 
+    .playlistinfo {
+        margin-top: 0;
+    }
+    .playlistinfo .avatar {
+        float:none;
+        width: 60%;
+        margin: calc(50% - 44px) auto;
+        
+    }
+    .playlistinfo .info {
+        margin-left: 0;
+        text-align: left;
+        width: 80%;
+        margin: 0 auto;
+    }
+    .playlistinfo table{
+        font-size: 10px;
+    }
+    .playlistinfo table th{
+        width: 150px;
+    }
+    .playlistinfo table td{
+        padding-left: 0;
+        padding-right: 10px;
+    }
+
+    .playlistinfo table th:first-child{
+        display: none;
+    }
+    .playlistinfo table td:first-child{
+        display: none;
+    }
+    .playlistinfo table th:last-child{
+        display: none;
+    }
+    .playlistinfo table td:last-child{
+        display: none;
+    }
+}
 </style>
 

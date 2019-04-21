@@ -11,41 +11,49 @@
             <button @click="search">
                 <span class="iconfont icon-search"></span>
             </button>
-            <ul class="search-suggest">
+            <ul class="search-suggest" v-show="suggest.length !== 0">
                 <li class="title">
                     <p>单曲</p>
                     <ul>
                         <li v-for="(song,index) in suggest.songs" :key="index">
-                            {{ song.name }}-{{
-                            song.artists.map(a=>{
-                            return a.name
-                            }).toString()
-                            }}
+                            <router-link :to="{ name: 'SongInfo', params: { id: song.id }}">
+                                {{ song.name }}-{{
+                                song.artists.map(a=>{
+                                return a.name
+                                }).toString()
+                                }}
+                            </router-link>
                         </li>
                     </ul>
                 </li>
                 <li class="title">
                     <p>歌手</p>
                     <ul>
-                        <li v-for="(artist,index) in suggest.artists" :key="index">{{ artist.name }}</li>
+                        <li v-for="(artist,index) in suggest.artists" :key="index">
+                            <router-link
+                                :to="{ name: 'SingerInfo', params: { id: artist.id }}"
+                            >{{ artist.name }}</router-link>
+                        </li>
                     </ul>
                 </li>
                 <li class="title">
                     <p>专辑</p>
                     <ul>
-                        <li
-                            v-for="(album,index) in suggest.albums"
-                            :key="index"
-                        >{{ album.name }}-{{ album.artist.name }}</li>
+                        <li v-for="(album,index) in suggest.albums" :key="index">
+                            <router-link
+                                :to="{ name: 'AlbumInfo', params: { id: album.id }}"
+                            >{{ album.name }}-{{ album.artist.name }}</router-link>
+                        </li>
                     </ul>
                 </li>
-                <li class="title">
+                <li class="title" v-show="suggest.playlists !== 0">
                     <p>歌单</p>
                     <ul>
-                        <li
-                            v-for="(playlist,index) in suggest.playlists"
-                            :key="index"
-                        >{{ playlist.name }}</li>
+                        <li v-for="(playlist,index) in suggest.playlists" :key="index">
+                            <router-link
+                                :to="{ name: 'playlistinfo', params: { id: playlist.id }}"
+                            >{{ playlist.name }}</router-link>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -71,19 +79,21 @@
                         <span class="iconfont icon-start"></span>
                     </td>
                     <td>
-                        <router-link :to="{ name: 'SongInfo', params: { id: item.id }}">
-                            {{item.name}}
-                        </router-link>
+                        <router-link
+                            :to="{ name: 'SongInfo', params: { id: item.id }}"
+                        >{{item.name}}</router-link>
                     </td>
                     <td>
-                        <router-link v-for="(ar,index) in item.artists" :key="index" :to="{ name: 'SingerInfo', params: { id: ar.id }}">
-                            {{ar.name}}
-                        </router-link>
+                        <router-link
+                            v-for="(ar,index) in item.artists"
+                            :key="index"
+                            :to="{ name: 'SingerInfo', params: { id: ar.id }}"
+                        >{{ar.name}}</router-link>
                     </td>
                     <td>
-                        <router-link :to="{ name: 'AlbumInfo', params: { id: item.album.id }}">
-                            {{item.album.name}}
-                        </router-link>
+                        <router-link
+                            :to="{ name: 'AlbumInfo', params: { id: item.album.id }}"
+                        >{{item.album.name}}</router-link>
                     </td>
                 </tr>
             </tbody>
@@ -93,9 +103,9 @@
                 <img :src="item.img1v1Url" alt>
                 <figcaption>
                     <p class="playlist-article">
-                        <router-link :to="{ name: 'SingerInfo', params: { id: item.id }}">
-                            {{item.name}}
-                        </router-link>
+                        <router-link
+                            :to="{ name: 'SingerInfo', params: { id: item.id }}"
+                        >{{item.name}}</router-link>
                     </p>
                 </figcaption>
             </figure>
@@ -176,6 +186,7 @@ export default {
                     const res = await get("/search/suggest?keywords=", navl);
                     if (res.code === 200) {
                         this.suggest = res.result;
+                        console.log(this.suggest)
                     }
                 } else {
                     this.suggest = [];
@@ -332,5 +343,31 @@ export default {
 }
 .search .artists figure img {
     width: 150px;
+}
+@media screen and (max-width: 1000px) {
+    .search .control {
+        width: 340px;
+    }
+    .search .control input {
+        width: 240px;
+    }
+    .search table th:first-child {
+        display: none;
+    }
+    .search table td:first-child {
+        display: none;
+    }
+    .search table th:last-child {
+        display: none;
+    }
+    .search table td:last-child {
+        display: none;
+    }
+    .search .artists figure {
+        width: 50%;
+    }
+    .search .search-suggest {
+        left: -10px;
+    }
 }
 </style>
