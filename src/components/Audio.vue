@@ -1,6 +1,6 @@
 <template>
     <div class="audio">
-        <audio :src="songUrl" ref="audio">
+        <audio :src="songUrl" ref="audio" autoplay>
         </audio>
         <div class="audio-controls clearfix">
             <div  @click="play"  class="audio-avatar">
