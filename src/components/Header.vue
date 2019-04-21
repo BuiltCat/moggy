@@ -4,8 +4,7 @@
         <ul class="nav">
             <li><router-link to="/">主页</router-link> </li>
             <li><router-link to="/playlist">歌单</router-link> </li>
-            <li><router-link to="/singer">歌手</router-link> </li>
-            <li><router-link to="/top">排行</router-link> </li>
+            <li><router-link to="/top/19723756">排行</router-link> </li>
             <li><router-link to="/search">搜索</router-link> </li>
         </ul>
     </div>

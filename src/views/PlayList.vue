@@ -15,7 +15,6 @@
 </template>
 <script>
 import { get } from "../utils/model";
-import { async } from 'q';
 export default {
     name: "playlist",
     data(){

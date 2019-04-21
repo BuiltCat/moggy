@@ -1,6 +1,6 @@
 <template>
     <div class="audio">
-        <audio :src="songUrl" ref="audio" autoplay>
+        <audio :src="songUrl" ref="audio">
         </audio>
         <div class="audio-controls clearfix">
             <div  @click="play"  class="audio-avatar">
@@ -203,9 +203,6 @@ export default {
     right: 0;
     bottom: 0;
     background: #83a4d4;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #b6fbff, #83a4d4);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #b6fbff, #83a4d4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
     color: #fff;
     height: 60px;
 }
@@ -262,7 +259,7 @@ export default {
     background: #fff;
     margin-top: 5px;
     height: 11px;
-    border: 5px solid #2c3e50;
+    border: 5px solid #83a4d4;
     cursor: pointer;
 }
 .audio .progress-bar .inline-bar{

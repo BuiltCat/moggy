@@ -1,5 +1,5 @@
 <template>
-    <div class="playlistinfo layout">
+    <div class="playlistinfo layout clearifx">
         <div class="clearfix">
             <div class="avatar">
                 <img :src="playlist.coverImgUrl" alt>
@@ -39,15 +39,21 @@
                     <td @click="addSong(song.id)">
                         <span class="iconfont icon-start"></span>
                     </td>
-                    <td>{{ song.name }}</td>
                     <td>
-                        {{
-                        song.ar.map((a)=>{
-                        return a.name
-                        }).toString()
-                        }}
+                        <router-link :to="{ name: 'SongInfo', params: { id: song.id }}">
+                            {{song.name}}
+                        </router-link>
                     </td>
-                    <td>{{ song.al.name }}</td>
+                    <td>
+                        <router-link v-for="(ar,index) in song.ar" :key="index" :to="{ name: 'SingerInfo', params: { id: ar.id }}">
+                            {{ar.name}}
+                        </router-link>
+                    </td>
+                    <td>
+                        <router-link :to="{ name: 'AlbumInfo', params: { id: song.al.id }}">
+                            {{song.al.name}}
+                        </router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -67,13 +73,20 @@ export default {
             }
         };
     },
+    watch:{
+        '$route' (to, from) {
+            (async () => {
+                const res = await get("/playlist/detail?id=", to.params.id);
+                if (res.code === 200) this.playlist = res.playlist;
+            })();
+        }
+    },
     mounted() {
         const id = this.$router.currentRoute.params.id;
         (async () => {
             const res = await get("/playlist/detail?id=", id);
             if (res.code === 200) this.playlist = res.playlist;
-            console.log(this.playlist);
-            console.log(this.playlist.description);
+            console.log(res)
         })();
     },
     methods: {

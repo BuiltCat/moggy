@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import { get } from './utils/model'
+import { getLyric } from './utils/tool'
 
 Vue.use(Vuex)
 
@@ -30,16 +31,7 @@ export default new Vuex.Store({
       })
     },
     getLyric(state, payload) {
-      const lyric = new Array();
-      const tempLyric = payload.lyric.split('\n');
-      tempLyric.forEach(element => {
-        const time = element.substring(element.indexOf("[") + 1, element.indexOf("]")).split(':');
-        lyric.push({
-          time: parseFloat(time[0]*60)+parseFloat(time[1]),
-          lyr: element.substring(element.indexOf("]") + 1, element.length)
-        })
-      });
-      state.lyric = lyric;
+      state.lyric = getLyric(payload.lyric)
     },
     changeSong(state, payload) {
       state.songNum = payload.num;
