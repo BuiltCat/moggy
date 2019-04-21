@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'http://localhost:3000';
+const url = 'http://47.101.35.46:3000/';
 export async function get(path,param) {
     const data = await axios.get(`${url}${path}${param}`);
     if (data.status === 200) {
