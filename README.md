@@ -23,3 +23,52 @@
 
 ## 数据来源
 [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+## 实现功能
+1. 音乐播放
+2. 歌词滚动展示
+3. 推荐页面 
+4. 歌单信息页
+5. 歌手信息页
+6. 排行页
+7. 搜索页
+## 项目结构
+```
+|-- src
+    |-- App.vue 
+    |-- main.js 入口页面
+    |-- router.js 路由
+    |-- store.js  vuex
+    |-- components 组件
+    |   |-- Audio.vue
+    |   |-- Banner.vue
+    |   |-- Header.vue
+    |   |-- Panel.vue
+    |   |-- Playlist.vue
+    |-- utils 常用工具
+    |   |-- model.js
+    |   |-- tool.js
+    |-- views 页面
+        |-- AlbumInfo.vue
+        |-- Home.vue
+        |-- PlayList.vue
+        |-- PlayListInfo.vue
+        |-- Search.vue
+        |-- SingerInfo.vue
+        |-- SongInfo.vue
+        |-- Top.vue
+
+```
+### 安装
+```
+# Clone
+git clone https://github.com/BuiltCat/moggy.git
+
+# Install
+npm install
+
+# Serve
+npm run serve
+
+# Build
+npm run build
+```
