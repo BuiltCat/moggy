@@ -9,6 +9,8 @@
 import axios from "axios";
 import Banner from "@/components/Banner";
 import Playlist from "@/components/Playlist";
+import { get } from "@/utils/model"
+import { async } from 'q';
 export default {
     data(){
         return {
@@ -17,12 +19,16 @@ export default {
         }
     },
     mounted(){
-        axios.get('http://localhost:3000/banner').then((res,rej)=>{
-            this.banners = res.data.banners;
-        })
-        axios.get('http://localhost:3000/top/playlist?limit=10').then((res,rej)=>{
-            this.playlists = res.data.playlists;
-        })
+        (async ()=>{
+           const banners = await get('/banner','');
+           if(banners.code === 200){
+               this.banners = banners.banners;
+           }
+           const playlists = await get('/top/playlist','?limit=10');
+           if(playlists.code === 200){
+               this.playlists = playlists.playlists;
+           }
+        })()
     },
     components: {
         Banner,
