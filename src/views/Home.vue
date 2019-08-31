@@ -10,7 +10,6 @@ import axios from "axios";
 import Banner from "@/components/Banner";
 import Playlist from "@/components/Playlist";
 import { get } from "@/utils/model"
-import { async } from 'q';
 export default {
     data(){
         return {

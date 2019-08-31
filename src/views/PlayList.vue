@@ -1,15 +1,15 @@
 <template>
     <div class="page playlist clearfix layout">
         <figure v-for="(playitem, index) in playlists" :key="index">
+             <router-link :to="{ name: 'playlistinfo', params: { id: playitem.id }}">
             <img :src="playitem.coverImgUrl" alt>
             <figcaption>
                 <p class="playlist-article">
-                    <router-link
-                        :to="{ name: 'playlistinfo', params: { id: playitem.id }}"
-                    >{{ playitem.name }}</router-link>
+                   {{ playitem.name }}
                 </p>
-                <p>by: {{ playitem.creator.nickname }}</p>
+                <p>{{ playitem.creator.nickname }}</p>
             </figcaption>
+            </router-link>
         </figure>
     </div>
 </template>
@@ -54,41 +54,4 @@ export default {
 };
 </script>
 <style>
-.playlist.page{
-    margin-top: 30px;
-}
-.playlist .playlist-title {
-    margin: 30px 10px;
-    border-bottom: 2px solid #42b983;
-}
-.playlist h2 {
-    text-align: left;
-    margin-right: 30px;
-}
-.playlist .playlist-title a {
-    float: right;
-    width: 30px;
-}
-.playlist .playlist-article {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.playlist figure {
-    display: inline-block;
-    width: 200px;
-    margin-bottom: 20px;
-}
-.playlist a {
-    color: #000;
-    text-decoration: none;
-}
-.playlist figure img {
-    width: 100px;
-}
-@media screen and (max-width: 1000px) {
-  .playlist figure{
-      width: 50%;
-  }
-}
 </style>

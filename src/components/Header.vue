@@ -1,6 +1,5 @@
 <template> 
     <div class="navHeader">
-        <h1>Moggy</h1>
         <ul class="nav">
             <li><router-link to="/">主页</router-link> </li>
             <li><router-link to="/playlist">歌单</router-link> </li>
@@ -34,6 +33,6 @@ export default {
 }
 .navHeader .nav li{
     display: inline-block;
-    padding: 0 20px;
+    padding: 10px 20px;
 }
 </style>
