@@ -15,8 +15,12 @@ export default {
 </script>
 <style>
 .navHeader {
+  position: sticky;
   padding: 10px;
   border-bottom: 1px solid #42b983;
+  top: 0;
+  background: #fff;
+  z-index: 1;
 }
 
 .navHeader a {

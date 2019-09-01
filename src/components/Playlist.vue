@@ -11,7 +11,9 @@
         <p class="playlist-nickname">{{ playitem.creator.nickname }}</p>
       </figcaption>
     </figure>
-    <router-link to="/PlayList">· · ·</router-link>
+    <figure class="clearfix">
+      <router-link to="/PlayList">查看更多</router-link>
+    </figure>
   </div>
 </template>
 <script>

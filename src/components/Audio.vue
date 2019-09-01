@@ -8,6 +8,7 @@
             </div>
             <div class="audio-info">
                 <p>{{ song }} - {{ singer }}</p>
+                <p></p>
                 <p>{{ s_2_hs(currentTime) }} / {{ s_2_hs(duration) }}</p>
                 <div @click="progress" class="progress-bar">
                     <div class="inline-bar" :style="progressWidth"></div>
@@ -94,7 +95,8 @@
                 <span class="iconfont" :class="this.isPlay?'icon-pause':'icon-start'"></span>
             </div>
             <div class="audio-info" @click="opList = !opList">
-                <p>{{ song }} - {{ singer }}</p>
+                <p>{{ song }}</p>
+                <p>{{ singer }}</p>
                 <p>{{ s_2_hs(currentTime) }} / {{ s_2_hs(duration) }}</p>
             </div>
             <div class="audio-operation">
@@ -108,6 +110,7 @@
 import store from "@/store";
 import { mapState } from "vuex";
 import { get } from "../utils/model";
+import defaultPicUrl from "@/assets/picUrl.jpg"
 export default {
     class: "audio",
     data() {
@@ -133,7 +136,7 @@ export default {
             if (this.songs.length) {
                 return this.songs[this.songNum].name;
             } else {
-                return "";
+                return "当前未播放歌曲";
             }
         },
         singer() {
@@ -144,7 +147,7 @@ export default {
                     })
                     .toString();
             } else {
-                return "";
+                return "暂无";
             }
         },
         songUrl() {
@@ -158,7 +161,7 @@ export default {
             if (this.songs.length) {
                 return this.songs[this.songNum].al.picUrl;
             } else {
-                return "";
+                return defaultPicUrl
             }
         }
     },
@@ -286,13 +289,12 @@ export default {
 <style>
 .audio {
     position: fixed;
-    border-top: 2px solid #42b983;
+    border-top: 1px solid #f2f2f2;
     left: 0;
     right: 0;
     bottom: 0;
-    background: #83a4d4; /* fallback for old browsers */
-    color: #fff;
     height: 60px;
+    background-color: #fff;
 }
 .audio .audio-controls {
     margin: 0 auto;
@@ -312,7 +314,9 @@ export default {
     right: 0;
 }
 .audio .audio-avatar img {
+    padding: 5px;
     width: 60px;
+    border-radius: 50%;
 }
 .audio .audio-avatar .iconfont {
     position: absolute;
@@ -341,7 +345,7 @@ export default {
     text-align: left;
 }
 .audio .audio-info p:first-child {
-    font-size: 16px;
+    font-size: 10px;
 }
 .audio .progress-bar {
     background: #fff;
@@ -498,11 +502,11 @@ export default {
     .webapp-controls .audio-info {
         display: inline-block;
         width: calc(100% - 120px);
-        font-size: 10px;
+        font-size: 12px;
     }
     .webapp-controls .audio-info p {
-        height: 30px;
-        line-height: 30px;
+        height: 20px;
+        line-height: 20px;
     }
     .webapp-controls .audio-operation {
         display: inline-block;
