@@ -94,7 +94,7 @@
                 <img :src="picUrl">
                 <span class="iconfont" :class="this.isPlay?'icon-pause':'icon-start'"></span>
             </div>
-            <div class="audio-info" @click="opList = !opList">
+            <div class="audio-info" @click="Player">
                 <p>{{ song }}</p>
                 <p>{{ singer }}</p>
                 <p>{{ s_2_hs(currentTime) }} / {{ s_2_hs(duration) }}</p>
@@ -167,6 +167,9 @@ export default {
     },
     watch: {
         currentTime(nval) {
+            this.$store.dispatch('getCurrentTime',{
+                currentTime: nval
+            })
             this.progressWidth.width = `${(700 * this.currentTime) /
                 this.duration}px`;
             if(this.lyric.length !== 0 && this.lyric[this.upTime].hasOwnProperty('time')){
@@ -195,6 +198,9 @@ export default {
                 if (isNaN(this.duration)) {
                     this.duration = 0;
                 }
+                this.$store.dispatch('getDuration',{
+                    duration: this.duration
+                })
             }.bind(this)
         );
         this.$refs.audio.addEventListener(
@@ -281,6 +287,9 @@ export default {
         },
         showLyc(){
             this.listShow = false;
+        },
+        Player(){
+             this.$router.push('/player')
         }
     },
     store

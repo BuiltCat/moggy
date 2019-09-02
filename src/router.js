@@ -8,6 +8,7 @@ import Search from './views/Search.vue'
 import SingerInfo from './views/SingerInfo.vue'
 import AlbumInfo from './views/AlbumInfo.vue'
 import SongInfo from './views/SongInfo.vue'
+import Player from './views/Player.vue'
 
 Vue.use(Router)
 
@@ -46,6 +47,10 @@ export default new Router({
       path: 'SongInfo/:id',
       name: 'SongInfo',
       component: SongInfo
+    }, {
+      path: '/player',
+      name: 'Player',
+      component: Player
     }
   ]
 })

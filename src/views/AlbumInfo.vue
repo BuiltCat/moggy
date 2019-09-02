@@ -60,7 +60,6 @@ export default {
             if(res.code === 200){
                 this.album = res.album;
                 this.songs = res.songs;
-                console.log(res);
             }
         })()
     },
@@ -72,7 +71,6 @@ export default {
             this.addPlayList(ids);
         },
         addSong(id) {
-            console.log(id)
             this.$store.dispatch("addSong", {
                 id: id
             });
