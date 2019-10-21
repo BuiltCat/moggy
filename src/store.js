@@ -12,7 +12,9 @@ export default new Vuex.Store({
         lyric: [],
         songNum: 0,
         currentTime: 0,
-        duration: 0
+        duration: 0,
+        audio: {},
+        isPlay: true
     },
     getters: {
 
@@ -23,6 +25,17 @@ export default new Vuex.Store({
             state.ids = state.songs.map(song => {
                 return song.id
             })
+        },
+        removeSong(state, payload){
+            state.songs.splice(payload.id,1)
+            state.ids = state.songs.map(song => {
+                return song.id
+            })
+            if(payload.id < payload.songNum){
+                state.songNum = payload.songNum - 1
+            }else{
+                state.songNum = payload.songNum
+            }
         },
         addSong(state, payload) {
             state.songs = state.songs.concat(payload.songs);
@@ -42,6 +55,12 @@ export default new Vuex.Store({
         },
         getDuration(state, duration) {
             state.duration = duration.duration
+        },
+        getAudio(state, audio){
+            state.audio = audio.audio
+        },
+        getIsPlay(state, isPlay){
+            state.isPlay = isPlay.isPlay
         }
     },
     actions: {
@@ -96,6 +115,16 @@ export default new Vuex.Store({
         getDuration(context, duration) {
             context.commit('getDuration', {
                 duration: duration.duration
+            })
+        },
+        getAudio(context, audio){
+            context.commit('getAudio', {
+                audio: audio.audio
+            })
+        },
+        getIsPlay(context, isPlay){
+            context.commit('getIsPlay', {
+                isPlay: isPlay.isPlay
             })
         }
     }
