@@ -1,13 +1,13 @@
 <template>
-    <div class="page playlist clearfix layout">
+    <div class="page playlistpage layout">
         <figure v-for="(playitem, index) in playlists" :key="index">
              <router-link :to="{ name: 'playlistinfo', params: { id: playitem.id }}">
             <img :src="playitem.coverImgUrl" alt>
+            <span class="iconfont icon-play"> {{ playitem.playCount > 10000 ? `${parseInt(playitem.playCount/10000)}万`:playitem.playCount  }} </span>
             <figcaption>
                 <p class="playlist-article">
                    {{ playitem.name }}
                 </p>
-                <p>{{ playitem.creator.nickname }}</p>
             </figcaption>
             </router-link>
         </figure>
@@ -26,7 +26,7 @@ export default {
         (async () => {
             const res = await get(
                 "/top/playlist/highquality",
-                "?before=1503639064232&limit=35"
+                "?limit=39"
             );
             window.addEventListener('scroll',this.handleScroll)
             if(res.code === 200){
@@ -54,4 +54,46 @@ export default {
 };
 </script>
 <style>
+.playlistpage figure{
+    position: relative;
+    display: inline-block;
+    width: 30%;
+    height: 150px;
+    padding: 10px;
+}
+.playlistpage .playlist-top3{
+    margin: 20px 0;
+}
+.playlistpage .playlist-top3 .rank{
+    text-align: left;
+    border-top: 1px solid #42b983;
+    border-left: 1px solid #42b983;
+    color: #42b983;
+}
+.playlistpage figure img{
+    width: 100px;
+    border-radius: 10px;
+}
+.playlistpage figure .iconfont{
+    position: absolute;
+    text-align: right;
+    width: 100px;
+    height: 100px;
+    font-size: 12px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    right: 12px;
+    background: rgba(85,85,85,0.1);
+    padding:2px 5px 0 0; 
+}
+.playlistpage figure .playlist-article{
+    display: inline-block;
+    margin: 0;
+    width: 100px;
+    height: 40px;
+    overflow: hidden;
+    color: #555;
+    font-size: 14px;
+}
 </style>
