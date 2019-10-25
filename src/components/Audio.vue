@@ -176,6 +176,9 @@ export default {
     line-height: 20px;
     font-size: 10px;
     text-align: left;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .audio .audio-info p:first-child {
     font-size: 10px;

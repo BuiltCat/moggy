@@ -2,7 +2,7 @@
     <div class="top layout">
         <ul class="top-list">
             <li v-for="(top,index) in Toplist" :key="index" >
-                <router-link :to="{ name: 'Top', params: { id: top.id }}">
+                <router-link :to="{ name: 'playlistinfo', params: { id: top.id }}">
                 <p class="active" v-if="id === top.id"> 
                     <img :src="top.coverImgUrl" :alt="top.name">
                     {{ top.name }}
@@ -14,7 +14,7 @@
                 </router-link>
             </li>
         </ul>
-        <PlayListInfo></PlayListInfo>
+        <!-- <PlayListInfo></PlayListInfo> -->
     </div>
 </template>
 
@@ -54,24 +54,21 @@ export default {
 
 <style>
 .top .top-list{
-    display: inline-block;
-    width: 250px;
     list-style: none;
     text-align: left;
-    border: 1px solid #d3d3d3;
 }
 .top .top-list li{
     font-size: 12px;
     cursor: pointer;
-}
-.top .top-list li:hover{
-    background: #f1f1f1;
-}
-.top .top-list li .active{
-    background: #d3d3d3;
+    display: inline-block;
+    box-sizing: content-box;
+    width: 50%;
 }
 .top .top-list li p{
     padding: 10px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .top .top-list li a{
     width: 100%;
@@ -84,32 +81,6 @@ export default {
     display: inline-block;
     width: 50px;
     vertical-align: middle;
-}
-.top .playlistinfo{
-    display: inline-block;
-    width: 750px;
-    padding-left: 50px;
-    vertical-align: top;
-}
-@media screen and (max-width: 1000px) { 
-    .top .top-list{
-        display: block;
-        width: 100%;
-        list-style: none;
-        text-align: left;
-        border: 1px solid #d3d3d3;
-        height: 142px;
-        overflow-y: auto;
-    }
-    .top .playlistinfo{
-        display: inline-block;
-        width: auto;
-        padding-left: 0;
-        vertical-align: top;
-    }
-    .top .playlistinfo .avatar {
-        margin: calc(50% - 135px) auto;
-    }
 }
 </style>
 

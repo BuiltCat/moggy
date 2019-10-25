@@ -3,51 +3,37 @@
         <div class="clearfix">
             <div class="avatar">
                 <img :src="artist.picUrl" alt>
-                <a class="play" @click="addAll">播放</a>
             </div>
             <div class="info">
-                <h2>&gt; {{ artist.name }}</h2>
-                <div class="introduce">
-                    <p>{{ artist.briefDesc }}</p>
-                </div>
+                <h2>{{ artist.name }}</h2>
+                <p class="introduce">{{ artist.briefDesc }}</p>
             </div>
         </div>
         <p class="title">
             歌曲列表
             <span class="trackCount">{{ hotSongs.length }}首歌</span>
         </p>
-        <table>
-            <thead>
-                <th></th>
-                <th></th>
-                <th>歌曲标题</th>
-                <th>歌手</th>
-                <th>专辑</th>
-            </thead>
-            <tbody>
-                <tr v-for="(song,index) in hotSongs" :key="index">
-                    <td>{{ index }}</td>
-                    <td @click="addSong(song.id)">
-                        <span class="iconfont icon-start"></span>
-                    </td>
-                    <td>
-                        <router-link :to="{ name: 'SongInfo', params: { id: song.id }}">
-                            {{ song.name }}
-                        </router-link>
-                    </td>
-                    <td>
+        <ul class="play-list">
+            <li @click="addAll">播放全部</li>
+            <li @click="addSong(song.id)" v-for="(song,index) in hotSongs" :key="index" class="clearfix">
+                <span class="avatar"><img :src="song.al.picUrl" alt="picUrl"></span>
+                <p>
+                    <span>
+                        {{song.name}}
+                    </span>
+                    <span>
                         <router-link v-for="(ar,index) in song.ar" :key="index" :to="{ name: 'SingerInfo', params: { id: ar.id }}">
                             {{ar.name}}
                         </router-link>
-                    </td>
-                    <td>
+                    </span>
+                    <span>
                         <router-link :to="{ name: 'AlbumInfo', params: { id: song.al.id }}">
-                            {{ song.al.name }}
+                            {{song.al.name}}
                         </router-link>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </span>
+                </p>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -91,5 +77,7 @@ export default {
 </script>
 
 <style>
-
+.playlistinfo .info .introduce{
+    height: 100%;
+}
 </style>

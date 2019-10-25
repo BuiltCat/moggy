@@ -230,6 +230,9 @@ export default {
     font-size: 20px;
     color: #1d1d1d;
     font-weight: 400;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .moggy-player .avatar {
     padding: 40px;

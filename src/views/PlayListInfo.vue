@@ -3,19 +3,15 @@
         <div class="clearfix">
             <div class="avatar">
                 <img :src="playlist.coverImgUrl" alt>
-                <a class="play" @click="addAll">播放</a>
             </div>
             <div class="info">
-                <h2>&gt; {{ playlist.name }}</h2>
+                <h2>{{ playlist.name }}</h2>
+                <p><span>{{ playlist.playCount }}次播放</span><span>{{playlist.subscribedCount}}次订阅</span></p>
                 <p class="author">
                     <img :src="playlist.creator.avatarUrl">
                     {{ playlist.creator.nickname }}
                 </p>
-                <div class="introduce">
-                    <p>{{ playlist.description }}</p>
-                </div>
                 <p>
-                    标签:
                     <span v-for="(tag,index) in playlist.tags" :key="index">{{ tag }}</span>
                 </p>
             </div>
@@ -25,38 +21,27 @@
             <span class="trackCount">{{ playlist.trackCount }}首歌</span>
             <span class="playcount">播放：{{ playlist.playCount }}次</span>
         </p>
-        <table>
-            <thead>
-                <th></th>
-                <th></th>
-                <th>歌曲标题</th>
-                <th>歌手</th>
-                <th>专辑</th>
-            </thead>
-            <tbody>
-                <tr v-for="(song,index) in playlist.tracks" :key="index">
-                    <td>{{ index }}</td>
-                    <td @click="addSong(song.id)">
-                        <span class="iconfont icon-start"></span>
-                    </td>
-                    <td>
-                        <router-link :to="{ name: 'SongInfo', params: { id: song.id }}">
-                            {{song.name}}
-                        </router-link>
-                    </td>
-                    <td>
+        <ul class="play-list">
+            <li @click="addAll">播放全部</li>
+            <li  @click="addSong(song.id)" v-for="(song,index) in playlist.tracks" :key="index" class="clearfix">
+                <span class="avatar"><img :src="song.al.picUrl" alt="picUrl"></span>
+                <p>
+                    <span>
+                        {{song.name}}
+                    </span>
+                    <span>
                         <router-link v-for="(ar,index) in song.ar" :key="index" :to="{ name: 'SingerInfo', params: { id: ar.id }}">
                             {{ar.name}}
                         </router-link>
-                    </td>
-                    <td>
+                    </span>
+                    <span>
                         <router-link :to="{ name: 'AlbumInfo', params: { id: song.al.id }}">
                             {{song.al.name}}
                         </router-link>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </span>
+                </p>
+            </li>
+        </ul>
     </div>
 </template>
 <script>
@@ -111,49 +96,50 @@ export default {
 };
 </script>
 <style>
-.playlistinfo {
-    margin-top: 40px;
-}
 .playlistinfo .avatar {
-    float: left;
-    width: 400px;
-}
-.playlistinfo .avatar .play {
-    display: block;
-    cursor: pointer;
-    width: 200px;
-    margin: 0 auto;
-    background: #42b983;
-    color: #fff;
+    width: 100%;
 }
 .playlistinfo .avatar img {
-    width: 200px;
-    height: 200px;
-    padding: 2px;
-    border: 1px solid #999999;
+    width:  100%;
+    height:  100%;
 }
 .playlistinfo .info {
-    margin-left: 400px;
+    box-sizing: border-box;
+    padding: 20px;
     text-align: left;
 }
-.playlistinfo .info h2::first-letter {
-    color: #42b983;
+.playlistinfo .info h2{
+    font-size: 20px;
+}
+.playlistinfo .info p{
+    margin: 20px 0;
+    height: 20px;
+}
+.playlistinfo .info p span{
+    font-size: 12px;
+    font-weight: 700;
+    padding-right: 20px;
 }
 .playlistinfo .info .author {
-    margin: 10px 0;
+    font-size: 12px;
+    line-height:20px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 300;
 }
 .playlistinfo .info .author img {
     display: inline-block;
-    width: 50px;
+    width: 20px;
     vertical-align: middle;
-    padding-right: 20px;
+    border-radius: 10px;
+    margin-right: 5px;
 }
 .playlistinfo .title {
     font-size: 20px;
     line-height: 28px;
     text-align: left;
     width: 90%;
-    margin: 50px auto 0;
+    margin: 10px auto 0;
 }
 .playlistinfo .title .trackCount {
     font-size: 12px;
@@ -164,74 +150,57 @@ export default {
     font-size: 12px;
     color: #666;
 }
-.playlistinfo table {
-    margin: 0 auto;
-    text-align: left;
-    border-collapse: collapse;
-    border-spacing: 0;
+.playlistinfo .play-list{
     width: 90%;
-    border-top: 3px solid #42b983;
+    margin: 0 auto 0;
+    list-style: none;
+    border-bottom: .5px solid #d4d4d4;
 }
-.playlistinfo table th {
-    padding: 15px;
+.playlistinfo .play-list li{
+    border-top: .5px solid #d4d4d4;
+    text-align: left;
+    padding: 5px 0;
 }
-.playlistinfo table td {
-    padding: 10px;
-}
-.playlistinfo table tr:nth-child(odd) {
-    background: #f7f7f7;
-}
-.playlistinfo table .iconfont{
-    font-size: 30px;
-}
-.playlistinfo table td:nth-child(2):hover{
-    color: rgba(9,9,9,0.1);
+.playlistinfo .play-list li:first-child{
+    text-align: center;
     cursor: pointer;
 }
-.playlistinfo table td:nth-child(2):active{
-    color: #42b983;
-    cursor: pointer;
+.playlistinfo .play-list a{
+    color: #666;
+    text-decoration: none;
 }
-
-@media screen and (max-width: 1000px) { 
-    .playlistinfo {
-        margin-top: 0;
-    }
-    .playlistinfo .avatar {
-        float:none;
-        width: 60%;
-        margin: calc(50% - 44px) auto;
-        
-    }
-    .playlistinfo .info {
-        margin-left: 0;
-        text-align: left;
-        width: 80%;
-        margin: 0 auto;
-    }
-    .playlistinfo table{
-        font-size: 10px;
-    }
-    .playlistinfo table th{
-        width: 150px;
-    }
-    .playlistinfo table td{
-        padding-left: 0;
-        padding-right: 10px;
-    }
-
-    .playlistinfo table th:first-child{
-        display: none;
-    }
-    .playlistinfo table td:first-child{
-        display: none;
-    }
-    .playlistinfo table th:last-child{
-        display: none;
-    }
-    .playlistinfo table td:last-child{
-        display: none;
-    }
+.playlistinfo .play-list .avatar{
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.playlistinfo .play-list img{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}
+.playlistinfo .play-list p{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    height: 60px;
+    text-align: left;
+    width: calc(100% - 70px);
+}
+.playlistinfo .play-list p span{
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    font-weight: 100;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.playlistinfo .play-list p span:first-child{
+    font-weight: 700;
 }
 </style>
 
