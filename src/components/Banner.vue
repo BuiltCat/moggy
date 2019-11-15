@@ -1,14 +1,13 @@
 <template>
     <div class="banner">
-        <a class="content" :href="url">
-            <img :src="imageUrl" alt="banner">
-        </a>
-        <a class="aside left" @click="pageNum --"> 
-             <span class="iconfont icon-p-left"></span>
-        </a>
-        <a class="aside right" @click="pageNum ++">
-            <span class="iconfont icon-p-right"></span>
-        </a>
+        <ul class="list-ban" ref="listBan">
+           <li v-for="(b, i) in banners" :key="i"> 
+                <a class="content" :href="b.url">
+                    <img :src="b.imageUrl" alt="banner">
+                </a>
+            </li>
+        </ul>
+            <!-- <img :src="imageUrl" alt="banner"> -->
         <ul class="list">
             <li v-for="(item, index) in banners" :key="index">
                 <span v-if="pageNum === index"  class="iconfont icon-spot active"></span>
@@ -50,10 +49,9 @@ export default {
     },
     methods:{
         changeBanner: function(pageNum){
-            this.imageUrl = this.banners[pageNum].imageUrl;
-            this.url = this.banners[pageNum].url;
+            this.$refs.listBan.scrollLeft = pageNum*this.$refs.listBan.clientWidth
         }
-    }
+    },
 
 }
 </script>
@@ -64,26 +62,14 @@ export default {
 .banner .content{
     display: inline-block;
 }
-.banner .aside .iconfont{
-    font-size: 50px;
+.banner .list-ban{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
-.banner .aside{
-    position: absolute;
-    display: block;
-    cursor: pointer;
-}
-.banner .aside:hover{
-    background: rgba(188, 188, 188, 0.8);
-}
-.banner .aside.left{
-    top: 50%;
-    left: -50px;
-    transform: translate(0, -50%);
-}
-.banner .aside.right{
-    top: 50%;
-    right: -50px;
-    transform: translate(0, -50%);
+.banner .list-ban li{
+    display: inline-block;
+
 }
 .banner .list{
     position: absolute;
@@ -110,9 +96,6 @@ export default {
         width: 100%;
         height: auto;
         vertical-align: bottom;
-    }
-    .banner .aside{
-        display: none;
     }
 }
 </style>

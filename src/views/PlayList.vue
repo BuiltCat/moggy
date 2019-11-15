@@ -83,7 +83,8 @@ export default {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     color: #fff;
-    right: 12px;
+    top: 10px;
+    left: 10px;
     background: rgba(85,85,85,0.1);
     padding:2px 5px 0 0; 
 }

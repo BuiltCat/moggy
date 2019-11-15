@@ -40,7 +40,6 @@
         <div ref="list" class="list" :class="isShowList?'show':'none'" >
             <p>
                 <span class="song-name">歌曲列表</span>
-                <span class="close">X</span>
             </p>
             <ul>
                 <li v-if="songs.length == 0">列表没有歌曲</li>
@@ -125,6 +124,9 @@ export default {
              this.$router.go(-1)
         },
         play(){
+            if (this.$store.state.songNum === 0){
+                return;
+            }
             this.$store.state.isPlay ? this.$store.state.audio.pause() : this.$store.state.audio.play();
             this.$store.dispatch("getIsPlay",{
                 isPlay: !this.$store.state.isPlay
@@ -174,7 +176,6 @@ export default {
             }
         },
         changeSong(id, event){
-            console.log(event.target.class)
             if(event.target.className == 'close'){
                 return;
             }
@@ -197,10 +198,10 @@ export default {
 <style>
 @keyframes showList {
     from { height: 0px; }
-    to { height: 300px; }
+    to { height: 60vh; }
 }
 @keyframes closeList {
-    from { height: 300px; }
+    from { height: 60vh; }
     to { height: 0px; }
 }
 .moggy-player#main{
@@ -214,13 +215,13 @@ export default {
     margin: 0px;
 }
 .moggy-player .header{
-    height: 60px;
-    line-height: 60px;
+    height: 10vh;
+    line-height: 10vh;
 }
 .moggy-player .header .iconfont{
     float: left;
     text-align: center;
-    width: 60px;
+    width: 10vh;
     font-size: 36px;
     vertical-align: middle;
 }
@@ -235,19 +236,21 @@ export default {
     white-space: nowrap;
 }
 .moggy-player .avatar {
+    box-sizing: border-box;
+    height: 25vh;
     padding: 40px;
 }
 .moggy-player .avatar img{
-    width: 210px;
+    width: 20vh;
     border: 5px solid #f2f2f2;
 }
 .moggy-player .lyric{
-    height: 200px;
+    height: 40vh;
     overflow: hidden;
 }
 .moggy-player .lyric li{
-    height: 40px;
-    line-height: 40px;
+    height: 8vh;
+    line-height: 8vh;
     color: #373737;
     font-weight: 400;
     font-size: 14px;
@@ -256,7 +259,9 @@ export default {
     color: #42b983;
 }
 .moggy-player .progress{
-    margin: 20px 10px;
+    box-sizing: border-box;
+    padding: 20px 10px;
+    height: 5vh;
 }
 .moggy-player .progress span{
     float: right;
@@ -282,22 +287,26 @@ export default {
 }
 .moggy-player .tool div{
     display: inline-block;
-    width: 46px;
-    height: 46px;
-    border-radius: 23px;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 5vw;
     vertical-align: middle;
     border: 1px solid #f22b1e;
 }
+.moggy-player .tool {
+    box-sizing: border-box;
+    height: 10vh;
+}
 .moggy-player .tool .space{
     border: none;
-    margin-left: 30px;
+    margin: 0 5vw;
 }
 .moggy-player .tool .play{
-    width: 66px;
-    height: 66px;
+    width: 20vw;
+    height: 20vw;
     background: #f22b1e;
-    border-radius: 33px;
-    margin: 0 30px;
+    border-radius: 10vw;
+    margin: 0 10vw;
 }
 .moggy-player .tool div::after{
     display: inline-block;
@@ -320,7 +329,7 @@ export default {
     position: fixed;
     animation: 1s showList;
     width: 100%;
-    height: 300px;
+    height: 60vh;
     bottom: 0;
     background: #fff;
     border-top: 1px solid #42b983;
@@ -344,27 +353,35 @@ export default {
     height: 100%;
 }
 .moggy-player .list li{
-    height: 40px;
-    line-height: 40px;
+    height: 6vh;
+    line-height: 6vh;
     padding: 0 20px;
+    text-align: left;
 }
 .moggy-player .list  .song-name{
     float: left;
     font-size: 14px;
+    width: 60%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .moggy-player .list  .song-ar{
     float: left;
     font-size: 12px;
     color: #999;
+    width: 30%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .moggy-player .list  .close{
     float: right;
 }
 .moggy-player .list p .song-name{
-    font-size: 16px;
-    border: 1px solid #42b983;
-    border-radius: 10px;
-    padding: 4px 12px;
+    font-size: 20px;
+    text-align: left;
+    padding: 4px 0;
     margin: 5px 0;
 }
 .moggy-player .list p .close{

@@ -14,7 +14,6 @@ export default {
     Audio,
     Header
   }
-  
 }
 </script>
 
