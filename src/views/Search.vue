@@ -132,6 +132,9 @@ export default {
 </script>
 
 <style>
+.search {
+  overflow: hidden;
+}
 .search .control {
   position: relative;
   width: 400px;
