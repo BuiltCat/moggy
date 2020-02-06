@@ -36,13 +36,13 @@ export default {
     },
     mounted(){
         (async ()=>{
-            const res = await get(
-                "/toplist",
-                ""
-            );
-            if(res.code === 200){
-                this.Toplist = res.list;
-            }
+                const res = await get(
+                    "/toplist",
+                    ""
+                );
+                if(res.code === 200){
+                    this.Toplist = res.list;
+                }
         })()
     },
     components:{

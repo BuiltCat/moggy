@@ -9,11 +9,12 @@
             <img :src="picUrl" alt="歌曲图片">
         </div>
         <ul class="lyric" ref="playerLyric">
-            <li v-if="lyric[this.upTime-3]">{{lyric[this.upTime-3].lyr}}</li>
-            <li v-if="lyric[this.upTime-3]">{{lyric[this.upTime-2].lyr}}</li>
-            <li v-if="lyric[this.upTime-3]" class="active">{{lyric[this.upTime-1].lyr}}</li>
-            <li v-if="lyric[this.upTime-3]">{{lyric[this.upTime].lyr}}</li>
-            <li v-if="lyric[this.upTime-3]">{{lyric[this.upTime+1].lyr}}</li>
+            <li ref="playerLyricli"></li>
+            <li></li>
+            <li v-for="(l, index) in lyric" :key="index" :class="[index+1===upTime?'active':'']">{{l.lyr}}
+            </li>
+            <li></li>
+            <li></li>
         </ul>
         <div class="progress clearfix">
             <span>{{currentTime}}</span>
@@ -63,14 +64,15 @@ export default {
     class: "moggy-player",
     data () {
         return{
-            upTime: 0,
             isShowList: false
         }
     },
     mounted(){
+        let hight = this.$refs.playerLyricli.clientHeight
+        this.$refs.playerLyric.scrollTop = (this.$store.state.upTime - 1) * hight
     },
     computed: {
-        ...mapState(["songs", "lyric", "songNum"]),
+        ...mapState(["songs", "lyric", "songNum","upTime"]),
         song() {
             if (this.songs.length) {
                 return this.songs[this.songNum].name;
@@ -104,9 +106,15 @@ export default {
             }
         },
         currentTime() {
-            if(this.lyric.length != 0 && this.lyric[this.upTime].hasOwnProperty('time')){
+            if(this.lyric.length != 0 && this.lyric[this.upTime] && this.lyric[this.upTime].hasOwnProperty('time')){
                 if(this.$store.state.currentTime >= this.lyric[this.upTime].time){
-                    this.upTime += 1;
+                    this.$store.commit("updateUpTime", {
+                        upTime: this.$store.state.upTime + 1
+                    });
+                    if(this.$refs.playerLyric){
+                        let hight = this.$refs.playerLyricli.clientHeight
+                        this.$refs.playerLyric.scrollTop = (this.$store.state.upTime - 1) * hight
+                    }
                 }
             }
             return s_2_hs(this.$store.state.currentTime)
@@ -125,7 +133,6 @@ export default {
              this.$router.go(-1)
         },
         play(){
-            console.log(this.$store.state)
             if (this.$store.state.songs.length === 0){
                 return;
             }
@@ -133,7 +140,9 @@ export default {
             this.$store.dispatch("getIsPlay",{
                 isPlay: !this.$store.state.isPlay
             });
-            this.upTime = 0
+            // this.$store.commit("updateUpTime", {
+            //     upTime: 0
+            // });
         },
         prev(){
             const length = this.songs.length - 1;
@@ -149,7 +158,9 @@ export default {
             this.$store.dispatch('getCurrentTime',{
                     currentTime: 0
                 })
-            this.upTime = 0
+            this.$store.commit("updateUpTime", {
+                upTime: 0
+            });
         },
         next(){
             const length = this.songs.length - 1;
@@ -165,7 +176,9 @@ export default {
             this.$store.dispatch('getCurrentTime',{
                     currentTime: 0
                 })
-            this.upTime = 0
+            this.$store.commit("updateUpTime", {
+                upTime: 0
+            });
         },
         showList(){
             this.isShowList = true;
@@ -184,14 +197,18 @@ export default {
             this.$store.commit("changeSong",{
                 num: id
             })
-            this.upTime = 0
+            this.$store.commit("updateUpTime", {
+                upTime: 0
+            });
         },
         removeSong(id){
             this.$store.commit("removeSong",{
                 id: id,
                 songNum: this.$store.state.songNum
             })
-            this.upTime = 0
+            this.$store.commit("updateUpTime", {
+                upTime: 0
+            });
         }
     },store
 
@@ -247,11 +264,12 @@ export default {
     border: 5px solid #f2f2f2;
 }
 .moggy-player .lyric{
-    height: 40vh;
-    overflow: hidden;
+    height: 30vh;
+    overflow-x: scroll;
+    margin: 5vh 0;
 }
 .moggy-player .lyric li{
-    height: 8vh;
+    height: 20%;
     line-height: 8vh;
     color: #373737;
     font-weight: 400;

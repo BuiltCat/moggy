@@ -21,9 +21,6 @@ export default {
   name: "playlist",
   props: {
     playlists: Array
-  },
-  mounted() {
-    console.log(this.playlists)
   }
 };
 </script>

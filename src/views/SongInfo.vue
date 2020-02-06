@@ -38,22 +38,22 @@ export default {
     },
     mounted() {
         (async () => {
-            const id = this.$router.currentRoute.params.id;
-            const res = await get("/song/detail?ids=", id);
-            const lyric = await get("/lyric?id=", id);
-            if (res.code === 200) {
-                this.song = res.songs[0];
-            }
-            if (lyric.code === 200) {
-                if (
-                    lyric.hasOwnProperty("uncollected") ||
-                    lyric.hasOwnProperty("nolyric")
-                ) {
-                    this.lyric = getLyric("[00:00.000] 暂无歌词\n");
-                } else {
-                    this.lyric = getLyric(lyric.lrc.lyric);
+                const id = this.$router.currentRoute.params.id;
+                const res = await get("/song/detail?ids=", id);
+                const lyric = await get("/lyric?id=", id);
+                if (res.code === 200) {
+                    this.song = res.songs[0];
                 }
-            }
+                if (lyric.code === 200) {
+                    if (
+                        lyric.hasOwnProperty("uncollected") ||
+                        lyric.hasOwnProperty("nolyric")
+                    ) {
+                        this.lyric = getLyric("[00:00.000] 暂无歌词\n");
+                    } else {
+                        this.lyric = getLyric(lyric.lrc.lyric);
+                    }
+                }
         })();
     },
     methods:{

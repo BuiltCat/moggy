@@ -8,6 +8,7 @@
 <script>
 import Header from "@/components/Header.vue"
 import Audio from "@/components/Audio.vue"
+
 export default {
   id: "app",
   components: {

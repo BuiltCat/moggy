@@ -24,21 +24,20 @@ export default {
     },
     mounted() {
         (async () => {
-            const res = await get(
-                "/top/playlist/highquality",
-                "?limit=39"
-            );
-            window.addEventListener('scroll',this.handleScroll)
-            if(res.code === 200){
-                this.playlists = res.playlists;
-            }
+                const res = await get(
+                    "/top/playlist/highquality",
+                    "?limit=39"
+                );
+                window.addEventListener('scroll',this.handleScroll)
+                if(res.code === 200){
+                    this.playlists = res.playlists;
+                }
         })();
     },
     methods:{
         handleScroll(){
             (async()=>{
-                if(document.documentElement.scrollTop + window.innerHeight >=document.documentElement.offsetHeight){
-                    
+                    if(document.documentElement.scrollTop + window.innerHeight >=document.documentElement.offsetHeight){
                     const res = await get(
                         "/top/playlist/highquality",
                         `?before=${this.playlists[this.playlists.length-1].updateTime}&limit=1000`
@@ -47,7 +46,7 @@ export default {
                         this.playlists = this.playlists.concat(res.playlists);
                     }
 
-                }
+                    }
             })()
         }
     }

@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        // 歌曲集合
         songs: [],
         ids: [],
         lyric: [],
@@ -14,7 +15,8 @@ export default new Vuex.Store({
         currentTime: 0,
         duration: 0,
         audio: {},
-        isPlay: true
+        isPlay: true,
+        upTime: 0,
     },
     getters: {
 
@@ -61,6 +63,9 @@ export default new Vuex.Store({
         },
         getIsPlay(state, isPlay){
             state.isPlay = isPlay.isPlay
+        },
+        updateUpTime(state, upTime){
+            state.upTime = upTime.upTime
         }
     },
     actions: {
@@ -125,6 +130,11 @@ export default new Vuex.Store({
         getIsPlay(context, isPlay){
             context.commit('getIsPlay', {
                 isPlay: isPlay.isPlay
+            })
+        },
+        updateUpTime(context, upTime){
+            context.commit('updateUpTime',{
+                upTime: upTime.upTime
             })
         }
     }

@@ -19,14 +19,14 @@ export default {
     },
     mounted(){
         (async ()=>{
-           const banners = await get('/banner','');
-           if(banners.code === 200){
-               this.banners = banners.banners;
-           }
-           const playlists = await get('/top/playlist','?limit=10');
-           if(playlists.code === 200){
-               this.playlists = playlists.playlists;
-           }
+                const banners = await get('/banner','');
+                if(banners.code === 200){
+                    this.banners = banners.banners;
+                }
+                const playlists = await get('/top/playlist','?limit=10');
+                if(playlists.code === 200){
+                    this.playlists = playlists.playlists;
+                }
         })()
     },
     components: {

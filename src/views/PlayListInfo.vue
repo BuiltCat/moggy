@@ -61,17 +61,19 @@ export default {
     watch:{
         '$route' (to, from) {
             (async () => {
-                const res = await get("/playlist/detail?id=", to.params.id);
-                if (res.code === 200) this.playlist = res.playlist;
+                    const res = await get("/playlist/detail?id=", to.params.id)
+                    if (res.code === 200) this.playlist = res.playlist
+                
+
             })();
         }
     },
     mounted() {
         const id = this.$router.currentRoute.params.id;
         (async () => {
-            const res = await get("/playlist/detail?id=", id);
-            if (res.code === 200) this.playlist = res.playlist;
-            console.log(res)
+                const res = await get("/playlist/detail?id=", id)
+                if (res.code === 200) this.playlist = res.playlist
+            
         })();
     },
     methods: {

@@ -20,7 +20,7 @@
 <script>
 import store from "@/store";
 import { mapState } from "vuex";
-import { get } from "../utils/model";
+// import { get } from "../utils/model";
 import defaultPicUrl from "@/assets/picUrl.jpg"
 import { s_2_hs } from "../utils/tool"
 
@@ -103,6 +103,7 @@ export default {
             return `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
         },
         next() {
+            console.log(1)
             const length = this.songs.length - 1;
             if (this.songNum === length) {
                 this.$store.commit("changeSong", {
@@ -113,6 +114,9 @@ export default {
                     num: this.songNum + 1
                 });
             }
+            this.$store.commit("updateUpTime", {
+                upTime: 0
+            });
             this.$store.dispatch('getCurrentTime',{
                     currentTime: 0
                 })

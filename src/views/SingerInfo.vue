@@ -48,11 +48,11 @@ export default {
     },
     mounted(){
         (async ()=>{
-            const res = await get('/artists?id=',this.$router.currentRoute.params.id);
-            if(res.code === 200){
-                this.artist = res.artist;
-                this.hotSongs = res.hotSongs;
-            }
+                const res = await get('/artists?id=',this.$router.currentRoute.params.id);
+                if(res.code === 200){
+                    this.artist = res.artist;
+                    this.hotSongs = res.hotSongs;
+                }
         })()
     },
     methods:{

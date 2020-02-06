@@ -48,11 +48,11 @@ export default {
     },
     mounted(){
         (async ()=>{
-            const res = await get('/album?id=',this.$router.currentRoute.params.id);
-            if(res.code === 200){
-                this.album = res.album;
-                this.songs = res.songs;
-            }
+                const res = await get('/album?id=',this.$router.currentRoute.params.id);
+                if(res.code === 200){
+                    this.album = res.album;
+                    this.songs = res.songs;
+                }
         })()
     },
     methods:{

@@ -88,37 +88,38 @@ export default {
   },
   mounted() {
     (async () => {
-        const res = await get("/search/hot/detail","");
-        if (res.code === 200) {
-          this.hots = res.data;
-        }
+            const res = await get("/search/hot/detail","");
+            if (res.code === 200) {
+                this.hots = res.data;
+            }
     })();
   },
   methods: {
     search: function() {
       (async () => {
-        if (this.keywords !== "") {
-          const res = await get(
-            `/search?type=${this.type}&keywords=`,
-            this.keywords
-          );
-          if (res.code === 200) {
-            this.list = res.result;
-            this.searched = true;
-          }
-        }
+            if (this.keywords !== "") {
+                const res = await get(
+                    `/search?type=${this.type}&keywords=`,
+                    this.keywords
+                );
+            if (res.code === 200) {
+                    this.list = res.result;
+                    this.searched = true;
+                }
+            }
       })();
     },
     search: function(keywords) {
       (async () => {
-          const res = await get(
-            `/search?type=${this.type}&keywords=`,
-            keywords
-          );
-          if (res.code === 200) {
-            this.list = res.result;
-            this.searched = true;
+            const res = await get(
+                `/search?type=${this.type}&keywords=`,
+                keywords
+            );
+            if (res.code === 200) {
+                this.list = res.result;
+                this.searched = true;
             }
+          
       })();
     },
     addSong(id) {
