@@ -2,7 +2,7 @@
     <div class="page playlistpage layout">
         <figure v-for="(playitem, index) in playlists" :key="index">
              <router-link :to="{ name: 'playlistinfo', params: { id: playitem.id }}">
-            <img :src="playitem.coverImgUrl" alt>
+            <img v-lazy="playitem.coverImgUrl" alt>
             <span class="iconfont icon-play"> {{ playitem.playCount > 10000 ? `${parseInt(playitem.playCount/10000)}万`:playitem.playCount  }} </span>
             <figcaption>
                 <p class="playlist-article">

@@ -1,7 +1,7 @@
 # Moggy Music Webapp
 
 ##  在线演示
-- [项目预览](http://47.101.35.46/moggy/)x
+- [项目预览](http://47.101.35.46/moggy/)
 - 为了更好的体验，请用开发者工具模拟移动端体验
 - 扫描二维码在手机上体验
 - ![avatar](./show/code.png)

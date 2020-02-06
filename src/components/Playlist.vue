@@ -1,7 +1,7 @@
 <template>
   <div class="playlist clearfix">
     <figure class="clearfix" v-for="(playitem, index) in playlists" :key="index">
-      <img :src="playitem.coverImgUrl" alt>
+      <img v-lazy="playitem.coverImgUrl" alt>
       <div class="trackCount">
         <p><i class="icon-list iconfont"></i> {{ playitem.trackCount}}</p>
         <p><i class="icon-bofang iconfont"></i> {{ playitem.playCount}}</p>

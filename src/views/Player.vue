@@ -1,3 +1,4 @@
+// 播放器页面
 <template>
     <div class="moggy-player" @mousedown="closeList">
         <div class="header">
@@ -124,7 +125,8 @@ export default {
              this.$router.go(-1)
         },
         play(){
-            if (this.$store.state.songNum === 0){
+            console.log(this.$store.state)
+            if (this.$store.state.songs.length === 0){
                 return;
             }
             this.$store.state.isPlay ? this.$store.state.audio.pause() : this.$store.state.audio.play();
