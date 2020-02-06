@@ -15,7 +15,7 @@
 ### 自动化构建及其他工具
 - `vue-cli`：Vue 脚手架工具，快速初始化项目代码，以及 webpack 的配置
 ### 后端
-- `jsonp`：服务端通讯。抓取 QQ音乐(移动端)数据（后面数据改为全部用axios实现抓取）
+- `Node.js`：服务端通讯，抓取网易云音乐数据
 ## 数据来源
 [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 ## 实现功能
